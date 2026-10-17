@@ -1,24 +1,13 @@
-# ----------------------------------------------------
-# Build Backend & Static Resources
-# ----------------------------------------------------
-FROM maven:3.9-eclipse-temurin-17-alpine AS build
-WORKDIR /app
-
-COPY pom.xml ./pom.xml
-RUN mvn dependency:go-offline -B || true
-
-COPY src ./src
-RUN mvn clean package -DskipTests
-
-# ----------------------------------------------------
-# Production Runtime
-# ----------------------------------------------------
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+# Copy the prebuilt Spring Boot executable JAR (Frontend & Backend bundled)
+COPY app.jar app.jar
+
+# Directory for file-based analytics
 RUN mkdir -p /app/data
 
+# Render automatically provides $PORT environment variable
 ENV PORT=8080
 EXPOSE 8080
 
