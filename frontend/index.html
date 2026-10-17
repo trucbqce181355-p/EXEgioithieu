@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>beAn - Người Bạn Đồng Hành Bảo Vệ Trẻ Em Trên Mọi Hành Trình</title>
+  <meta name="description"
+    content="Hệ thống cảnh báo an toàn trên ô tô chống bỏ quên trẻ em và thú cưng kết hợp phụ kiện decor thiên thần beAn, đo chất lượng không khí OLED và làm thơm xe.">
+  <meta name="keywords"
+    content="beAn, an toan tre em o to, chong bo quen tre em, radar HLK-LD2410, esp32, may khu mui o to, decor mascot oto">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-interest-track="body">
+
+  <!-- ================= NAVIGATION BAR ================= -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" data-track-id="nav-logo">
+        <img src="assets/images/bean-logo.png" alt="beAn Logo" class="brand-logo-img">
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#gioi-thieu" class="nav-link active" data-track-id="nav-gioi-thieu">Giới Thiệu</a>
+        <a href="#ve-bean" class="nav-link" data-track-id="nav-ve-bean">Tìm Hiểu beAn</a>
+        <a href="#chuc-nang" class="nav-link" data-track-id="nav-chuc-nang">Chức Năng</a>
+        <a href="#nguyen-ly" class="nav-link" data-track-id="nav-nguyen-ly">Nguyên Lý</a>
+        <a href="#thoi-su" class="nav-link" data-track-id="nav-thoi-su">Tin Tức</a>
+        <a href="#lien-he" class="nav-link" data-track-id="nav-lien-he">Liên Hệ</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-admin-nav" id="btnAdminNav" title="Quản Trị Viên (Admin)" data-track-id="nav-admin-login">
+          <i class="fa-solid fa-user-shield"></i>
+          <span id="adminNavLabel">Admin</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" data-track-id="nav-mobile-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 1. GIỚI THIỆU SẢN PHẨM (HERO SECTION) ================= -->
+    <section class="hero-section" id="gioi-thieu" data-track-id="section-hero">
+      <div class="hero-bg-glow"></div>
+      <div class="container hero-layout">
+
+        <div class="hero-content">
+          <div class="hero-title-group">
+            <div class="hero-pill" data-track-id="hero-pill-badge">
+              <span class="pulse-dot"></span>
+              <span>beAn - Be Every Angel Nearby</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="gradient-text">beAn</span> - Người Bạn Đồng Hành Bảo Vệ Người Thân Trên Mọi Hành Trình
+            </h1>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="hero-trust-grid">
+            <div class="trust-item" data-track-id="trust-badge-radar">
+              <div class="trust-icon"><i class="fa-solid fa-wave-square"></i></div>
+              <div class="trust-text">
+                <strong>Radar mmWave<br>24GHz Siêu Nhạy</strong>
+                <p>Nhận diện nhịp thở<br>ngay cả khi ngủ say</p>
+              </div>
+            </div>
+
+            <div class="trust-item" data-track-id="trust-badge-air">
+              <div class="trust-icon"><i class="fa-solid fa-wind"></i></div>
+              <div class="trust-text">
+                <strong>Khí Tươi &amp; Tinh Dầu<br>Màn OLED Báo AQI</strong>
+                <p>Khuếch tán thơm mát<br>&amp; giám sát không khí</p>
+              </div>
+            </div>
+
+            <div class="trust-item" data-track-id="trust-badge-cloud">
+              <div class="trust-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+              <div class="trust-text">
+                <strong>Ứng Dụng Flutter<br>&amp; Firebase Cloud</strong>
+                <p>Cảnh báo tức thời<br>tới mọi smartphone</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual: beAn Angel Mascot Showcase -->
+        <div class="hero-visual" data-track-id="hero-visual-container">
+          <div class="mascot-card-wrapper">
+            <div class="angel-halo-glow"></div>
+
+            <div class="mascot-main-display">
+              <div class="hero-image-frame hero-slider-container" id="heroSliderContainer">
+                <!-- Slides Track -->
+                <div class="hero-slider-track" id="heroSliderTrack">
+                  <!-- Slide 1 -->
+                  <div class="hero-slide active" data-slide-index="0">
+                    <img src="assets/images/beAntrenxe.jpg" alt="beAn trên ghế xe ô tô" class="mascot-hero-img" loading="eager" fetchpriority="high">
+                  </div>
+                  <!-- Slide 2 -->
+                  <div class="hero-slide" data-slide-index="1">
+                    <img src="assets/images/beAntrenxe2.jpg" alt="beAn trên bệ tỳ tay ô tô" class="mascot-hero-img" loading="eager">
+                  </div>
+                  <!-- Slide 3 -->
+                  <div class="hero-slide" data-slide-index="2">
+                    <img src="assets/images/beAntrenxe3.jpg" alt="beAn đồng hành ban đêm trên ô tô" class="mascot-hero-img" loading="eager">
+                  </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="slider-arrow arrow-prev" id="heroPrevBtn" aria-label="Ảnh trước" data-track-id="hero-slider-prev">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow arrow-next" id="heroNextBtn" aria-label="Ảnh tiếp theo" data-track-id="hero-slider-next">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <!-- Dots Pagination -->
+                <div class="slider-dots" id="heroSliderDots">
+                  <span class="dot active" data-index="0" title="Ảnh 1"></span>
+                  <span class="dot" data-index="1" title="Ảnh 2"></span>
+                  <span class="dot" data-index="2" title="Ảnh 3"></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 2. TÌM HIỂU VỀ BEAN (ABOUT BEAN & STORY) ================= -->
+    <section class="section about-section" id="ve-bean" data-track-id="section-about">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="sub-badge" data-track-id="badge-about">Về Dự Án beAn</div>
+          <h2 class="section-title">Khi Công Nghệ An Toàn Chạm Đến <span class="gradient-text">Cảm Xúc Gia Đình</span></h2>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-story-card glass-panel" data-track-id="about-card-story">
+            <div class="card-icon-badge"><i class="fa-solid fa-heart-pulse"></i></div>
+            <h3>Câu Chuyện Khởi Nguồn</h3>
+            <p>
+              Những vụ việc đau lòng khi trẻ nhỏ bị bỏ quên trên xe ô tô tại Việt Nam và trên thế giới luôn để lại nỗi
+              day dứt khôn nguôi. Nguyên nhân không phải do phụ huynh hay tài xế không yêu thương con, mà đến từ
+              <strong>áp lực công việc, sự mất tập trung nhất thời</strong>.
+            </p>
+            <p>
+              Nhóm sinh viên chúng em ấp ủ ước mơ: <em>"Tại sao không tạo ra một thiên thần hộ mệnh luôn thức canh trên
+                xe, vừa bảo vệ bé yêu tuyệt đối khi xe tắt máy, vừa đem lại niềm vui và bầu không khí trong lành mỗi
+                ngày?"</em> - Và <strong>beAn</strong> chính thức ra đời!
+            </p>
+
+            <div class="story-quote">
+              <i class="fa-solid fa-quote-left quote-icon"></i>
+              <span>“Không chỉ là thiết bị cảnh báo - beAn là người bạn đồng hành gửi gắm sự an tâm trọn vẹn cho từng
+                chuyến đi của gia đình bạn.”</span>
+            </div>
+          </div>
+
+          <div class="about-mascot-card glass-panel" data-track-id="about-card-mascot">
+            <div class="mascot-preview-wrap">
+              <div class="mascot-img-showcase">
+                <div class="mascot-ambient-halo"></div>
+                <img src="assets/images/bean-angel-mascot.png" alt="Thiết kế linh vật beAn" class="mascot-showcase-img">
+              </div>
+              <div class="mascot-attributes">
+                <div class="attr-tag" data-track-id="attr-halo"><i class="fa-solid fa-circle-notch"></i> Vòng thiên thần phát sáng</div>
+                <div class="attr-tag" data-track-id="attr-face"><i class="fa-regular fa-face-smile-wink"></i> Màn hình biểu cảm thân thiện</div>
+                <div class="attr-tag" data-track-id="attr-wings"><i class="fa-solid fa-feather-pointed"></i> Đôi cánh bảo hộ thiên thần</div>
+                <div class="attr-tag" data-track-id="attr-aroma"><i class="fa-solid fa-spray-can-sparkles"></i> Khe tỏa tinh dầu thơm dịu</div>
+              </div>
+            </div>
+
+            <div class="mascot-text-block">
+              <h3>Ý Nghĩa Hình Tượng Linh Vật beAn</h3>
+              <p>
+                Lấy cảm hứng từ <strong>hạt đậu nhỏ (Bean)</strong> tượng trưng cho mầm sống non nớt của trẻ thơ, khoác
+                lên mình hình hài của một <strong>Thiên thần hộ mệnh</strong> (Angel) với vòng hào quang và đôi cánh nhỏ.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3 Trụ Cột Khác Biệt Của beAn -->
+        <div class="pillars-grid mt-5">
+          <div class="pillar-card" data-track-id="pillar-card-1">
+            <div class="pillar-number">01</div>
+            <h4>Thiết Kế Cảm Xúc</h4>
+            <p>Mascot thiên thần decor sang trọng, thân thiện với trẻ nhỏ thay vì những hộp đen công nghiệp thô kệch.
+            </p>
+          </div>
+
+          <div class="pillar-card" data-track-id="pillar-card-2">
+            <div class="pillar-number">02</div>
+            <h4>Đa Dụng 2-trong-1</h4>
+            <p>Không bị "bỏ xó" như thiết bị phòng hộ thông thường. Ngày thường làm thơm xe, đo không khí; khi tắt máy
+              thành lính canh an toàn.</p>
+          </div>
+
+          <div class="pillar-card" data-track-id="pillar-card-3">
+            <div class="pillar-number">03</div>
+            <h4>Chi Phí Linh Hoạt</h4>
+            <p>Mô hình khởi nghiệp sinh viên tối ưu hóa phần cứng, tiếp cận trực tiếp từng hộ gia đình và trường mầm non
+              với giá thành cực kỳ hợp lý.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 3. CHỨC NĂNG BEAN (FEATURES & 2-IN-1 MODE) ================= -->
+    <section class="section features-section" id="chuc-nang" data-track-id="section-features">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="sub-badge" data-track-id="badge-features">Tính Năng Đột Phá</div>
+          <h2 class="section-title">Tích Hợp Đa Chức Năng <span class="gradient-text">Hoàn Hảo</span> Trong Một Sản Phẩm</h2>
+        </div>
+
+        <!-- 2 Chế độ Lớn: Khi xe chạy vs Khi xe tắt máy -->
+        <div class="features-dual-grid">
+
+          <!-- Chế độ 1: Khi xe tắt máy (Cốt lõi an toàn) -->
+          <div class="feature-mode-card safety-card" data-track-id="feature-card-safety">
+            <div class="card-status-pill danger-pill">
+              <i class="fa-solid fa-shield-virus"></i> CHẾ ĐỘ AN TOÀN (XE TẮT MÁY)
+            </div>
+
+            <h3 class="feature-card-heading">Bảo Vệ Chủ Động & Chống Bỏ Quên Tuyệt Đối</h3>
+            <p class="feature-card-sub">Kích hoạt ngay khi xe ngắt động cơ (Acc Off) để bảo đảm không một sinh linh nào
+              bị bỏ quên.</p>
+
+            <ul class="feature-list">
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-radar"></i></div>
+                <div>
+                  <strong>Radar mmWave HLK-LD2410 Siêu Nhạy</strong>
+                  <p>Phát hiện vi chuyển động như nhịp thở, cử động ngực ngay cả khi bé hoặc thú cưng ngủ say dưới chăn
+                    hoặc ghế sau.</p>
+                </div>
+              </li>
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                <div>
+                  <strong>Cảnh Báo Âm Thanh Kép Tại Chỗ</strong>
+                  <p>Phát còi báo động thông minh trên xe sau 60 giây nếu phát hiện người bên trong để thu hút sự chú ý
+                    của người xung quanh.</p>
+                </div>
+              </li>
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                <div>
+                  <strong>Bắn Thông Báo Khẩn Cấp Về Điện Thoại</strong>
+                  <p>Gửi cảnh báo rung chuông tức thì qua Firebase & Flutter App, cung cấp nhiệt độ cabin và vị trí GPS
+                    chính xác để giải cứu kịp thời.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="feature-card-footer">
+              <span class="highlight-tag"><i class="fa-solid fa-check-circle"></i> Tránh 100% rủi ro sốc nhiệt</span>
+            </div>
+          </div>
+
+          <!-- Chế độ 2: Khi xe lăn bánh (Tiện ích thường nhật) -->
+          <div class="feature-mode-card utility-card" data-track-id="feature-card-utility">
+            <div class="card-status-pill success-pill">
+              <i class="fa-solid fa-car"></i> CHẾ ĐỘ TIỆN ÍCH (XE ĐANG CHẠY)
+            </div>
+
+            <h3 class="feature-card-heading">Chăm Sóc Sức Khỏe & Thư Giãn Trên Từng Cây Số</h3>
+            <p class="feature-card-sub">Đồng hành trong mọi hành trình hàng ngày, nâng niu không gian sống bên trong xế
+              cưng của bạn.</p>
+
+            <ul class="feature-list">
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-smog"></i></div>
+                <div>
+                  <strong>Cảm Biến Khí Tươi & Môi Trường BME680</strong>
+                  <p>Liên tục phân tích chỉ số AQI, nồng độ khí độc hữu cơ VOC, độ ẩm và nhiệt độ không khí trong khoang
+                    lái.</p>
+                </div>
+              </li>
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-tv"></i></div>
+                <div>
+                  <strong>Màn Hình Kỹ Thuật Số OLED 0.96" I2C</strong>
+                  <p>Hiển thị các chỉ số môi trường và biểu cảm mặt cười đáng yêu, sinh động theo chất lượng không khí
+                    thực tế.</p>
+                </div>
+              </li>
+              <li>
+                <div class="feat-icon"><i class="fa-solid fa-spray-can"></i></div>
+                <div>
+                  <strong>Khuếch Tán Tinh Dầu Tự Nhiên</strong>
+                  <p>Hệ thống vi phun sương tinh dầu thơm hữu cơ, giúp khử mùi hôi điều hòa, chống say xe cho trẻ em và
+                    phụ nữ.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="feature-card-footer">
+              <span class="highlight-tag"><i class="fa-solid fa-sparkles"></i> Không gian xe thơm mát, tinh khiết</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= BỘ GIẢ LẬP TƯƠNG TÁC (INTERACTIVE SIMULATOR) ================= -->
+        <div class="interactive-simulator-box glass-panel mt-5" data-track-id="interactive-simulator-box">
+          <div class="simulator-header">
+            <div class="sim-badge"><i class="fa-solid fa-microchip"></i> TRẢI NGHIỆM TƯƠNG TÁC TRỰC TUYẾN</div>
+            <h3>Mô Phỏng Phản Ứng Của beAn Trong Các Tình Huống Thực Tế</h3>
+          </div>
+
+          <div class="simulator-controls-grid">
+
+            <div class="sim-panel sim-inputs">
+              <div class="sim-control-group">
+                <label>1. Trạng thái Động cơ Xe:</label>
+                <div class="btn-group-toggle">
+                  <button class="sim-btn active" id="simCarEngineOn" data-track-id="sim-engine-on">
+                    <i class="fa-solid fa-key"></i> Đang chạy máy (Acc On)
+                  </button>
+                  <button class="sim-btn" id="simCarEngineOff" data-track-id="sim-engine-off">
+                    <i class="fa-solid fa-circle-xmark"></i> Xe đã tắt máy (Acc Off)
+                  </button>
+                </div>
+              </div>
+
+              <div class="sim-control-group">
+                <label>2. Hiện diện trong xe (Radar HLK-LD2410):</label>
+                <div class="btn-group-toggle">
+                  <button class="sim-btn" id="simChildAbsent" data-track-id="sim-child-absent">
+                    <i class="fa-solid fa-user-xmark"></i> Không có người
+                  </button>
+                  <button class="sim-btn active" id="simChildPresent" data-track-id="sim-child-present">
+                    <i class="fa-solid fa-baby"></i> Phát hiện bé đang ngủ
+                  </button>
+                </div>
+              </div>
+
+              <div class="sim-control-group">
+                <label>3. Nhiệt độ cabin ô tô: <span id="simTempDisplay"
+                    class="font-bold text-accent">26°C</span></label>
+                <input type="range" id="simTempSlider" min="20" max="55" value="26" class="range-slider"
+                  data-track-id="sim-slider-temp">
+                <div class="slider-marks">
+                  <span>20°C (Mát)</span>
+                  <span>32°C (Ấm)</span>
+                  <span>42°C (Nguy Hiểm)</span>
+                  <span>55°C (Sốc Nhiệt)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Màn hình kết quả phản ứng của beAn -->
+            <div class="sim-panel sim-output glass-card" id="simOutputBox" data-track-id="sim-output-box">
+              <div class="sim-output-badge" id="simStatusBadge">
+                <i class="fa-solid fa-check-circle"></i> Trạng thái: BÌNH THƯỜNG / TIỆN ÍCH
+              </div>
+
+              <div class="sim-mascot-reaction">
+                <div class="mascot-face-mini" id="simMascotFace">
+                  <img src="assets/images/bean-angel-mascot.png" alt="Mascot Reaction" class="sim-mascot-img">
+                </div>
+                <div class="sim-display-screen" id="simScreen">
+                  <div class="oled-header">beAn OLED 0.96"</div>
+                  <div class="oled-body">
+                    <div class="oled-row"><span class="oled-lbl">TEMP:</span> <strong id="oledTemp">26.0°C</strong>
+                    </div>
+                    <div class="oled-row"><span class="oled-lbl">STATUS:</span> <strong id="oledStatus"
+                        class="text-success">SAFE & FRESH</strong></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phone Alert Pop Simulator -->
+              <div class="sim-phone-notification" id="simPhoneNotification">
+                <div class="phone-noti-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="phone-noti-text">
+                  <strong>🚨 CẢNH BÁO KHẨN CẤP BEAN!</strong>
+                  <p id="simNotiMsg">Phát hiện bé trong xe sau khi tắt máy! Nhiệt độ cabin: 26°C</p>
+                </div>
+              </div>
+
+              <div class="sim-action-summary" id="simActionSummary">
+                Hệ thống đang ở chế độ làm thơm và hiển thị không khí tươi mát.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4. NGUYÊN LÝ HOẠT ĐỘNG (HOW IT WORKS & TECH ARCHITECTURE) ================= -->
+    <section class="section tech-section" id="nguyen-ly" data-track-id="section-tech">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="sub-badge" data-track-id="badge-tech">Công Nghệ & Kỹ Thuật</div>
+          <h2 class="section-title">Nguyên Lý Hoạt Động & <span class="gradient-text">Kiến Trúc Hệ Thống</span></h2>
+        </div>
+
+        <!-- 4 Bước hoạt động tuần tự -->
+        <div class="workflow-steps-grid">
+
+          <div class="step-card glass-card" data-track-id="step-card-1">
+            <div class="step-badge">BƯỚC 1</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-satellite-dish"></i></div>
+            <h4>Thu Nhận Tín Hiệu<br>Cảm Biến Đa Tầng</h4>
+            <p>Radar sóng milimet HLK-LD2410 và cảm biến BME680 quét liên tục không gian xe để đo chuyển động, nhịp thở, nồng độ khí và nhiệt độ.</p>
+          </div>
+
+          <div class="step-card glass-card" data-track-id="step-card-2">
+            <div class="step-badge">BƯỚC 2</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+            <h4>Xử Lý Tại Vi Điều Khiển<br>Nhúng ESP32</h4>
+            <p>ESP32 phân tích trạng thái xe (tắt máy hay đang nổ máy). Thuật toán lọc nhiễu nhận diện chính xác sự hiện diện của trẻ nhỏ hoặc thú cưng.</p>
+          </div>
+
+          <div class="step-card glass-card" data-track-id="step-card-3">
+            <div class="step-badge">BƯỚC 3</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h4>Đồng Bộ Firebase Cloud<br>&amp; Còi Báo Động</h4>
+            <p>Nếu xe tắt máy mà còn người bên trong, hệ thống kích hoạt còi buzzer tại xe và tức thời gửi tín hiệu khẩn lên Firebase Realtime Database.</p>
+          </div>
+
+          <div class="step-card glass-card" data-track-id="step-card-4">
+            <div class="step-badge">BƯỚC 4</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-mobile-retro"></i></div>
+            <h4>Cảnh Báo Khẩn Cấp Về<br>Ứng Dụng Flutter</h4>
+            <p>Smartphone phụ huynh rung chuông báo động đỏ, cung cấp tọa độ xe và nhiệt độ cabin để người thân ứng cứu hoặc bấm còi từ xa.</p>
+          </div>
+
+        </div>
+
+        <!-- Tech Hardware vs Mobile App Showcase -->
+        <div class="tech-showcase-grid mt-5">
+
+          <div class="tech-hardware-card glass-panel" data-track-id="tech-hardware-card">
+            <div class="tech-card-header">
+              <h3><i class="fa-solid fa-microchip text-accent"></i> Phần Cứng & Linh Kiện beAn</h3>
+              <p>Mạch tích hợp cao cấp được thiết kế nhỏ gọn giấu khéo léo bên trong vỏ bọc silicon Mascot hạt đậu:</p>
+            </div>
+
+            <div class="tech-components-list">
+              <div class="comp-item" data-track-id="comp-esp32">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> ESP32 MCU:</strong>
+                <span>Xử lý lõi kép 240MHz, tích hợp Wi-Fi & Bluetooth năng lượng thấp.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-radar">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Radar HLK-LD2410:</strong>
+                <span>Tần số 24GHz mmWave, phát hiện chuyển động vi mô 0.2m - 5m, không góc chết.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-bme680">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Cảm biến BME680:</strong>
+                <span>Đo nhiệt độ sai số ±0.5°C, độ ẩm, áp suất khí quyển và khí độc VOC / AQI.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-oled">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Màn OLED 0.96" I2C:</strong>
+                <span>Độ tương phản cao, góc nhìn rộng, hiển thị chỉ số trực quan cho tài xế.</span>
+              </div>
+            </div>
+
+            <!-- Hardware Component Interactive Slider (4 Linh kiện beAn) -->
+            <div class="tech-media-frame hardware-slider-container mt-3" id="hardwareSliderContainer">
+              <div class="hardware-slider-track" id="hardwareSliderTrack">
+                <!-- Slide 1: ESP32 -->
+                <div class="hardware-slide active" data-slide-index="0">
+                  <img src="assets/images/bean-hardware-esp32.png" alt="Vi Điều Khiển ESP32 MCU" class="hardware-slide-img" loading="eager">
+                  <div class="slide-caption-tag">
+                    <i class="fa-solid fa-microchip text-accent"></i> 01. Vi Điều Khiển ESP32 MCU
+                  </div>
+                </div>
+
+                <!-- Slide 2: Radar HLK-LD2410 -->
+                <div class="hardware-slide" data-slide-index="1">
+                  <img src="assets/images/bean-hardware-radar.png" alt="Radar mmWave HLK-LD2410" class="hardware-slide-img" loading="eager">
+                  <div class="slide-caption-tag">
+                    <i class="fa-solid fa-tower-broadcast text-accent"></i> 02. Radar HLK-LD2410 24GHz
+                  </div>
+                </div>
+
+                <!-- Slide 3: Cảm biến BME680 -->
+                <div class="hardware-slide" data-slide-index="2">
+                  <img src="assets/images/bean-hardware-bme680.png" alt="Cảm biến khí BME680" class="hardware-slide-img" loading="eager">
+                  <div class="slide-caption-tag">
+                    <i class="fa-solid fa-wind text-accent"></i> 03. Cảm Biến Khí BME680
+                  </div>
+                </div>
+
+                <!-- Slide 4: Màn OLED -->
+                <div class="hardware-slide" data-slide-index="3">
+                  <img src="assets/images/bean-hardware-oled.png" alt="Màn Hình OLED 0.96 inch" class="hardware-slide-img" loading="eager">
+                  <div class="slide-caption-tag">
+                    <i class="fa-solid fa-display text-accent"></i> 04. Màn OLED 0.96" I2C
+                  </div>
+                </div>
+              </div>
+
+              <!-- Navigation Arrows -->
+              <button class="slider-arrow arrow-prev" id="hwPrevBtn" aria-label="Linh kiện trước" data-track-id="hw-slider-prev">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <button class="slider-arrow arrow-next" id="hwNextBtn" aria-label="Linh kiện tiếp theo" data-track-id="hw-slider-next">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+
+              <!-- Dots Pagination -->
+              <div class="slider-dots" id="hwSliderDots">
+                <span class="dot active" data-index="0" title="ESP32 MCU"></span>
+                <span class="dot" data-index="1" title="Radar HLK-LD2410"></span>
+                <span class="dot" data-index="2" title="Cảm biến BME680"></span>
+                <span class="dot" data-index="3" title="Màn OLED 0.96&quot;"></span>
+              </div>
+            </div>
+
+            <div class="tech-actions-note">
+              <p><i class="fa-solid fa-shield-halved text-success"></i> Linh kiện đạt chuẩn an toàn xe hơi, tiêu thụ điện cực thấp (&lt; 0.8W).</p>
+            </div>
+          </div>
+
+          <div class="tech-app-card glass-panel" data-track-id="tech-app-card">
+            <div class="tech-card-header">
+              <h3><i class="fa-solid fa-mobile-screen text-accent"></i> Ứng Dụng Di Động Flutter & Cloud</h3>
+              <p>Giao diện hiện đại, kết nối thời gian thực giúp phụ huynh và nhà trường giám sát an toàn tuyệt đối:</p>
+            </div>
+
+            <div class="tech-components-list">
+              <div class="comp-item" data-track-id="comp-flutter">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Flutter Framework:</strong>
+                <span>Chạy đa nền tảng iOS & Android mượt mà, thao tác trực quan cho ba mẹ.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-firebase">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Firebase Realtime:</strong>
+                <span>Đồng bộ tức thì trạng thái bật/tắt máy, nhịp thở và nhiệt độ cabin trong 0.5s.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-alert">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Cảnh Báo Khẩn Cấp:</strong>
+                <span>Rung chuông cảnh báo đỏ to rõ, gửi thông báo vượt qua chế độ im lặng của máy.</span>
+              </div>
+              <div class="comp-item" data-track-id="comp-remote">
+                <strong><i class="fa-solid fa-circle-check text-success"></i> Điều Khiển Từ Xa:</strong>
+                <span>Hỗ trợ bấm còi báo động khẩn cấp, gọi tài xế xe buýt và mở bản đồ định vị xe.</span>
+              </div>
+            </div>
+
+            <!-- Mobile App Preview Frame -->
+            <div class="tech-media-frame app-img-preview mt-3">
+              <div class="app-img-frame">
+                <img src="assets/images/bean-mobile-alert.jpg" alt="Màn hình cảnh báo khẩn cấp trên điện thoại"
+                  class="app-display-img" data-track-id="img-mobile-alert">
+                <div class="slide-caption-tag">
+                  <i class="fa-solid fa-bell text-danger"></i> Ứng Dụng Di Động beAn Flutter
+                </div>
+              </div>
+            </div>
+
+            <div class="app-actions-note">
+              <p><i class="fa-solid fa-info-circle text-info"></i> Phụ huynh có thể kích hoạt còi xe từ xa, gọi trực
+                tiếp cho tài xế xe buýt hoặc mở bản đồ dẫn đường tới vị trí xe.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bảng So Sánh Với Đối Thủ Cạnh Tranh (BA GPS) -->
+        <div class="comparison-table-wrapper glass-panel mt-5" data-track-id="comparison-table-wrapper">
+          <h3 class="text-center mb-3">So Sánh beAn Với Các Thiết Bị Cảnh Báo Truyền Thống (BA GPS)</h3>
+
+          <div class="table-responsive">
+            <table class="custom-table" data-track-id="comparison-table">
+              <thead>
+                <tr>
+                  <th>Tiêu Chí So Sánh</th>
+                  <th>Thiết Bị Truyền Thống (Ví dụ BA GPS)</th>
+                  <th class="bean-col">Giải Pháp beAn (Khởi Nghiệp Sáng Tạo)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Thiết kế & Ngoại quan</strong></td>
+                  <td>Hộp đen kim loại, thô cứng, mang tính kỹ thuật công nghiệp</td>
+                  <td class="bean-col"><strong class="text-success"><i class="fa-solid fa-check"></i> Mascot thiên thần
+                      decor xe cực đáng yêu, gần gũi với trẻ nhỏ</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Khách hàng mục tiêu</strong></td>
+                  <td>Doanh nghiệp vận tải lớn, hợp đồng B2B giá cao</td>
+                  <td class="bean-col"><strong class="text-success"><i class="fa-solid fa-check"></i> Phụ huynh cá nhân
+                      (B2C), gia đình trẻ & trường mầm non tư thục</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Phát hiện khi trẻ ngủ say</strong></td>
+                  <td>Dựa vào camera AI (dễ bị che khuất bởi chăn/áo khoác hoặc góc khuất)</td>
+                  <td class="bean-col"><strong class="text-success"><i class="fa-solid fa-check"></i> Radar mmWave 24GHz
+                      xuyên chăn mỏng, nhận diện nhịp hô hấp vi mô</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Tính đa dụng thường ngày</strong></td>
+                  <td>Chỉ phát huy khi có sự cố, ngày thường không có tác dụng gì</td>
+                  <td class="bean-col"><strong class="text-success"><i class="fa-solid fa-check"></i> Đo chất lượng
+                      không khí OLED, khuếch tán tinh dầu thơm, chống say xe</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Chi phí & Lắp đặt</strong></td>
+                  <td>Chi phí cao (hàng triệu VNĐ/tháng duy trì server), lắp đặt phức tạp</td>
+                  <td class="bean-col"><strong class="text-success"><i class="fa-solid fa-check"></i> Giá thành tối ưu
+                      startup, cắm cổng USB/tẩu sạc ô tô là hoạt động ngay</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 5. BẢNG THÔNG TIN THỜI SỰ & PHÁP LÝ ================= -->
+    <section class="section news-section" id="thoi-su" data-track-id="section-news">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="sub-badge" data-track-id="badge-news">Bối Cảnh Thực Tế</div>
+          <h2 class="section-title">Bảng Thông Tin <span class="gradient-text">Tin Tức</span></h2>
+        </div>
+
+        <!-- Pháp Lý & Điểm Tin Thời Sự -->
+        <div class="news-cards-grid">
+
+          <div class="news-card glass-card" data-track-id="news-card-law">
+            <div class="news-card-badge law-badge"><i class="fa-solid fa-scale-balanced"></i> QUY ĐỊNH PHÁP LUẬT VIỆT
+              NAM</div>
+            <h4>Từ 01/01/2025: Xe Đưa Đón Học Sinh Bắt Buộc Phải Có Thiết Bị Cảnh Báo Chống Bỏ Quên</h4>
+            <p class="news-summary">
+              Theo quy định pháp luật mới nhất về an toàn giao thông đường bộ, mọi phương tiện ô tô tham gia đưa đón trẻ
+              em mầm non và học sinh tiểu học bắt buộc phải trang bị thiết bị cảnh báo chống bỏ quên trẻ em.
+            </p>
+            <div class="news-meta">
+              <span><i class="fa-regular fa-calendar"></i> Áp dụng: 01/01/2025</span>
+              <span><i class="fa-solid fa-gavel"></i> Nghị định TT-BCA/BGTVT</span>
+            </div>
+            <a href="https://thuvienphapluat.vn/hoi-dap-phap-luat/tu-ngay-01012025-xe-dua-don-tre-em-hoc-sinh-phai-co-thiet-bi-canh-bao-chong-bo-quen-tre-138030073.html"
+              target="_blank" rel="noopener noreferrer" class="news-readmore" data-track-id="link-thuvienphapluat">
+              Xem toàn văn văn bản pháp luật <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <div class="news-card glass-card news-card-interactive" id="cardIncident" data-track-id="news-card-incident1">
+            <div class="news-card-badge incident-badge"><i class="fa-solid fa-triangle-exclamation"></i> BÀI HỌC THỰC TẾ
+            </div>
+            <h4>Những Vụ Việc Đau Lòng Gần Đây: Lời Cảnh Tỉnh Không Thể Phụ Thuộc Vào Trí Nhớ</h4>
+            <p class="news-summary">
+              Nhiều trường hợp thương tâm xảy ra tại Thái Bình, Hà Nội và nhiều tỉnh thành cho thấy: việc kiểm tra thủ
+              công luôn tiềm ẩn rủi ro do tài xế hoặc giáo viên bị quá tải, áp lực hoặc đãng trí nhất thời.
+            </p>
+            <div class="news-meta">
+              <span><i class="fa-regular fa-newspaper"></i> VTC News / VnExpress</span>
+              <span><i class="fa-solid fa-heart-crack text-danger"></i> Hồi chuông báo động</span>
+            </div>
+            <button type="button" class="news-readmore btn-open-incident-article" id="btnOpenIncidentArticle" data-track-id="link-read-incident-article">
+              Đọc bài viết phân tích chi tiết <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <div class="news-card glass-card" data-track-id="news-card-health-risk">
+            <div class="news-card-badge health-badge"><i class="fa-solid fa-triangle-exclamation"></i> CẢNH BÁO Y TẾ &amp; KHOA HỌC</div>
+            <h4>VnExpress: Hiểm Họa Chết Người Khi Ở Lâu Trong Ô Tô Đóng Kín</h4>
+            <p class="news-summary">
+              Ở lâu trong ôtô đóng kín, dù bật điều hòa hay không đều dẫn đến thiếu oxy, ngạt khí, thậm chí sốc nhiệt, suy hô hấp cấp tính và nguy cơ tử vong rất nhanh ở trẻ nhỏ.
+            </p>
+            <div class="news-meta">
+              <span><i class="fa-regular fa-newspaper"></i> Báo VnExpress Sức Khỏe</span>
+              <span><i class="fa-solid fa-skull-crossbones text-danger"></i> Hiểm họa ngạt khí</span>
+            </div>
+            <a href="https://vnexpress.net/hiem-hoa-chet-nguoi-khi-o-lau-trong-oto-dong-kin-4894343.html" target="_blank" rel="noopener noreferrer" class="news-readmore" data-track-id="link-vnexpress-heatstroke">
+              Đọc toàn văn bài báo trên VnExpress <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 6. LIÊN HỆ & MẠNG XÃ HỘI (FB, TIKTOK) ================= -->
+    <section class="section contact-section" id="lien-he" data-track-id="section-contact">
+      <div class="container">
+
+        <div class="section-header text-center">
+          <div class="sub-badge" data-track-id="badge-contact">Đồng Hành Cùng beAn</div>
+          <h2 class="section-title">Liên Hệ & <span class="gradient-text">Kết Nối Với Chúng Tôi</span></h2>
+        </div>
+
+        <div class="contact-layout-grid">
+
+          <!-- Facebook Card -->
+          <div class="social-card facebook-card glass-panel" data-track-id="social-card-fb">
+            <div class="social-header">
+              <div class="social-icon fb-icon"><i class="fa-brands fa-facebook-f"></i></div>
+              <div class="social-info">
+                <h4>beAn - Be Every Angel Nearby</h4>
+                <p>Fanpage chính thức của nhóm</p>
+              </div>
+            </div>
+
+            <div class="social-buttons">
+              <a href="https://www.facebook.com/share/1EfS6HToGJ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="btn-social-visit"
+                data-track-id="btn-fb-visit">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ghé thăm Fanpage
+              </a>
+            </div>
+          </div>
+
+          <!-- TikTok Card -->
+          <div class="social-card tiktok-card glass-panel" data-track-id="social-card-tiktok">
+            <div class="social-header">
+              <div class="social-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+              <div class="social-info">
+                <h4>beAn - Be Every Angel Nearby</h4>
+                <p>Kênh TikTok sáng tạo video Mascot & Mẹo an toàn</p>
+              </div>
+            </div>
+
+            <div class="social-buttons">
+              <a href="https://www.tiktok.com/@bean.fpt?_r=1&amp;_t=ZS-9AdQ2qn6LFo" target="_blank" rel="noopener noreferrer" class="btn-social-visit"
+                id="btnTiktokVisit" data-track-id="btn-preview-tiktok">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ghé thăm trang TikTok
+              </a>
+            </div>
+          </div>
+
+          <!-- Project Team Contact Box -->
+          <div class="project-info-card glass-panel" data-track-id="project-info-card">
+            <h4><i class="fa-solid fa-graduation-cap text-accent"></i> Đội Ngũ Dự Án beAn (Group6_EXE201_G14)</h4>
+            <ul class="contact-details-list">
+              <li><i class="fa-solid fa-location-dot"></i> Đại học FPT Cần Thơ</li>
+              <li><i class="fa-solid fa-phone"></i> Hotline: <strong>0707747906</strong></li>
+              <li><i class="fa-solid fa-envelope"></i> Email: <strong>beeveryangelnearby@gmail.com</strong></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= SITE FOOTER ================= -->
+  <footer class="site-footer" data-track-id="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <img src="assets/images/bean-logo.png" alt="beAn Logo" class="footer-logo-img">
+        <p>Người bạn đồng hành bảo vệ người thân trên mọi hành trình.</p>
+      </div>
+
+
+      <div class="footer-copy">
+        <p>&copy; 2025-2026 Dự án beAn - Thiết bị an toàn thông minh trên ô tô. All rights reserved.</p>
+        <p class="exe-note">Đồ án môn học / Dự án Khởi nghiệp Sáng tạo EXE. • <a href="javascript:void(0)" id="btnFooterAdminLogin" class="footer-admin-link"><i class="fa-solid fa-lock"></i> Đăng nhập Quản Trị</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- ================= MODAL: TIKTOK VIDEO PREVIEW ================= -->
+  <div class="modal-overlay" id="tiktokModal" data-track-id="modal-tiktok-overlay">
+    <div class="modal-dialog tiktok-modal-dialog glass-panel" data-track-id="modal-tiktok-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i class="fa-brands fa-tiktok text-danger"></i>
+          <h3>Kênh TikTok beAn - Trải Nghiệm Mascot Trên Xe</h3>
+        </div>
+        <button class="modal-close" id="btnCloseTiktok" data-track-id="modal-close-tiktok">&times;</button>
+      </div>
+
+      <div class="tiktok-player-mockup">
+        <div class="tiktok-video-screen">
+          <img src="assets/images/bean-car-hero.jpg" alt="beAn trên taplo xe ô tô" class="tiktok-bg-img">
+
+          <div class="tiktok-overlay-ui">
+            <div class="tiktok-author-info">
+              <h4>beAn - Be Every Angel Nearby</h4>
+              <p>Mascot thiên thần beAn tỏa hương tinh dầu thơm mát & canh chừng bé yêu khi ba mẹ đỗ xe! 👶🚗✨</p>
+              <span class="tiktok-music"><i class="fa-solid fa-music"></i> Âm thanh gốc - beAn Safe Car Official</span>
+            </div>
+
+            <div class="tiktok-side-actions">
+              <div class="side-action-btn" id="btnTiktokHeart">
+                <i class="fa-solid fa-heart"></i>
+                <span id="ttHeartCount">48.2K</span>
+              </div>
+              <div class="side-action-btn">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>1,240</span>
+              </div>
+              <div class="side-action-btn">
+                <i class="fa-solid fa-share"></i>
+                <span>892</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ARTICLE - INCIDENT & SCIENTIFIC ANALYSIS ================= -->
+  <div class="modal-overlay article-modal-overlay" id="articleIncidentModal" data-track-id="modal-article-incident">
+    <div class="modal-dialog article-modal-dialog glass-panel">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i class="fa-solid fa-newspaper text-danger"></i>
+          <h3>Chuyên Đề Thời Sự &amp; An Toàn</h3>
+        </div>
+        <button class="modal-close" id="btnCloseIncidentModal" aria-label="Đóng bài viết">&times;</button>
+      </div>
+
+      <div class="article-container">
+        <div class="article-meta-bar">
+          <span class="article-badge badge-danger"><i class="fa-solid fa-triangle-exclamation"></i> BÀI HỌC THỰC TẾ &amp; Y KHOA</span>
+          <span><i class="fa-regular fa-clock"></i> 4 phút đọc</span>
+          <span><i class="fa-regular fa-calendar"></i> Cập nhật 2025</span>
+          <span><i class="fa-solid fa-feather-pointed"></i> Ban Biên Tập beAn</span>
+        </div>
+
+        <h2 class="article-main-title">Lời Cảnh Tỉnh Sau Các Vụ Việc Bỏ Quên Trẻ Trên Ô Tô: Vì Sao Không Thể Chỉ Trông Chờ Vào "Trí Nhớ"?</h2>
+
+        <div class="article-lead">
+          Những tai nạn đau xót khi trẻ em bị bỏ quên trên xe ô tô không đơn thuần là "sự vô tâm", mà bắt nguồn từ khiếm khuyết tự nhiên của não bộ con người khi bị áp lực cuộc sống chi phối. Hiểu đúng nguyên nhân khoa học và trang bị chốt chặn công nghệ tự động là con đường duy nhất để ngăn thảm kịch tái diễn.
+        </div>
+
+        <div class="article-body">
+          <h3 class="article-heading"><i class="fa-solid fa-heart-crack text-danger"></i> 1. Những hồi chuông cảnh báo đau xót trong thực tế</h3>
+          <p>
+            Tháng 5/2024, một bé trai 5 tuổi tại TP. Thái Bình đã mãi mãi ra đi sau khi bị bỏ quên gần 11 tiếng đồng hồ trên xe đưa đón giữa đợt nắng nóng đỉnh điểm. Trước đó, vụ việc trường Gateway tại Hà Nội (2019) và hơn 1.000 trường hợp tương tự được ghi nhận tại Mỹ và nhiều quốc gia trên thế giới trong 3 thập kỷ qua.
+          </p>
+          <p>
+            Mỗi khi tai nạn xảy ra, làn sóng dư luận đều bày tỏ sự phẫn nộ và đặt câu hỏi: <em>"Tại sao một việc quan trọng như đưa con trẻ xuống xe lại có thể quên được?"</em>. Nhưng các nhà khoa học thần kinh chỉ ra rằng: việc chỉ quy kết trách nhiệm cho sự bất cẩn cá nhân là chưa hiểu đúng bản chất hoạt động của bộ não con người.
+          </p>
+
+          <h3 class="article-heading"><i class="fa-solid fa-brain text-accent"></i> 2. Giải mã khoa học: "Hội chứng bỏ quên con" (Forgotten Baby Syndrome - FBS)</h3>
+          <p>
+            Theo nghiên cứu của <strong>Giáo sư Thần kinh học David Diamond</strong> (Đại học South Florida, Hoa Kỳ), não bộ con người vận hành với hai hệ thống xử lý thông tin độc lập:
+          </p>
+          <ul class="article-list">
+            <li><strong>Hệ thống thói quen tự động (Basal Ganglia):</strong> Giúp chúng ta thực hiện các thao tác quen thuộc như lái xe, đạp ga, rẽ vào cung đường hàng ngày một cách vô thức như "chế độ lái tự động" (Autopilot).</li>
+            <li><strong>Hệ thống trí nhớ nhận thức (Prefrontal Cortex &amp; Hippocampus):</strong> Chịu trách nhiệm ghi nhớ những kế hoạch mới hoặc thay đổi lịch trình đột xuất (ví dụ: hôm nay nhận thêm trách nhiệm đưa con đi học).</li>
+          </ul>
+
+          <div class="article-quote">
+            <i class="fa-solid fa-quote-left"></i> Khi tài xế hoặc cha mẹ bị căng thẳng quá mức, thiếu ngủ, mệt mỏi hoặc bị phân tâm bởi một cuộc gọi công việc đột ngột, hệ thống thói quen sẽ lấn át hoàn toàn trí nhớ nhận thức. Não bộ tự động sinh ra một "ký ức giả" (False Memory) đánh lừa người lái rằng họ đã cho trẻ xuống xe an toàn. Hiện tượng này có thể xảy ra với bất kỳ ai, kể cả những người cha mẹ yêu thương con cái và có trách nhiệm nhất. <i class="fa-solid fa-quote-right"></i>
+          </div>
+
+          <h3 class="article-heading"><i class="fa-solid fa-temperature-arrow-up text-danger"></i> 3. "Hiệu ứng lò nung": Ô tô đóng kín cửa biến thành bẫy nhiệt chết người</h3>
+          <p>
+            Nhiều người lầm tưởng: <em>"Mở hé cửa kính hoặc đỗ xe dưới bóng râm sẽ an toàn"</em>. Nghiên cứu thực nghiệm khí động học đã chứng minh không gian cabin kín hấp thụ nhiệt bức xạ mặt trời cực kỳ khủng khiếp:
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-temp-table">
+              <thead>
+                <tr>
+                  <th>Thời gian đóng kín</th>
+                  <th>Nhiệt độ ngoài trời</th>
+                  <th>Nhiệt độ khoang xe</th>
+                  <th>Tác động lên cơ thể trẻ nhỏ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>0 phút</strong></td>
+                  <td>35°C</td>
+                  <td>35°C</td>
+                  <td>Bắt đầu toát mồ hôi, khó chịu</td>
+                </tr>
+                <tr>
+                  <td><strong>10 phút</strong></td>
+                  <td>35°C</td>
+                  <td><span class="temp-badge temp-warn">42°C - 45°C</span></td>
+                  <td>Thở gấp, nhịp tim tăng vọt, quấy khóc</td>
+                </tr>
+                <tr>
+                  <td><strong>20 phút</strong></td>
+                  <td>35°C</td>
+                  <td><span class="temp-badge temp-danger">51°C - 53°C</span></td>
+                  <td>Sốc nhiệt, mất nước cấp tính, mất khả năng kêu cứu</td>
+                </tr>
+                <tr>
+                  <td><strong>40 - 60 phút</strong></td>
+                  <td>35°C</td>
+                  <td><span class="temp-badge temp-fatal">60°C - 68°C</span></td>
+                  <td>Tổn thương não vĩnh viễn, hôn mê sâu, trụy tim</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mt-3">
+            Đặc biệt, <strong>thân nhiệt của trẻ em tăng nhanh gấp 3 đến 5 lần so với người lớn</strong> do diện tích bề mặt da lớn hơn so với thể trọng và trung tâm điều hòa thân nhiệt ở não chưa hoàn thiện. Khi nhiệt độ cơ thể vượt quá 40°C, các tế bào bắt đầu bị phá hủy chỉ sau ít phút.
+          </p>
+
+          <h3 class="article-heading"><i class="fa-solid fa-shield-halved text-success"></i> 4. Giải pháp căn cơ: Công nghệ tự động beAn phải là chốt chặn cuối cùng</h3>
+          <p>
+            Quy trình kiểm tra thủ công luôn tiềm ẩn rủi ro do sai số con người (Human Error). Do đó, sự hiện diện của thiết bị giám sát tự động 100% như <strong>beAn</strong> là lời giải bắt buộc và bền vững:
+          </p>
+          <ul class="article-list">
+            <li><strong>Cảm biến Radar sóng milimet (mmWave HLK-LD2410):</strong> Quét nhịp thở lồng ngực siêu vi mô xuyên qua chăn mền, nệm ghế — ngay cả khi trẻ ngủ say bất động, không phát ra tiếng khóc.</li>
+            <li><strong>Cảm biến khí &amp; nhiệt độ BME680:</strong> Giám sát chính xác từng mili-độ C và nồng độ khí CO2/VOCs ngột ngạt trong khoang cabin.</li>
+            <li><strong>Cơ chế cứu hộ chủ động đa kênh:</strong> Tự động kích hoạt còi xe ô tô để gây chú ý người xung quanh, hạ quạt thông gió và phát cuộc gọi / tin nhắn SOS tức thì đến phụ huynh và người quản lý.</li>
+          </ul>
+
+          <div class="article-sources-box">
+            <h4><i class="fa-solid fa-newspaper text-accent"></i> Bài Báo Tham Khảo Chính Thống (Bấm Xem Trực Tiếp):</h4>
+            <div class="source-links-list">
+              <a href="https://vnexpress.net/hoi-chung-khien-nhieu-phu-huynh-bo-quen-con-tren-oto-3964953.html" target="_blank" rel="noopener noreferrer" class="source-link-item">
+                <i class="fa-regular fa-newspaper"></i> <span><strong>VnExpress:</strong> Hội chứng đãng trí khiến cha mẹ bỏ quên con trên ôtô</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+              <a href="https://vtcnews.vn/vu-be-5-tuoi-tu-vong-tren-xe-dua-don-loi-canh-tinh-khong-the-bo-qua-ar873831.html" target="_blank" rel="noopener noreferrer" class="source-link-item">
+                <i class="fa-regular fa-newspaper"></i> <span><strong>VTC News:</strong> Vụ bé 5 tuổi tử vong trên xe đưa đón: Lời cảnh tỉnh không thể bỏ qua</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-incident-modal" id="btnFooterCloseIncident">
+            <i class="fa-solid fa-xmark"></i> Đóng bài viết
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADMIN LOGIN ================= -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-dialog admin-login-dialog glass-panel">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="admin-badge-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div>
+            <h3>Đăng Nhập Quản Trị Hệ Thống</h3>
+          </div>
+        </div>
+        <button class="modal-close" id="btnCloseAdminLogin" aria-label="Đóng">&times;</button>
+      </div>
+
+      <div class="admin-login-body">
+        <div class="admin-login-alert" id="adminLoginAlert" style="display: none;">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span id="adminLoginAlertMsg">Sai tài khoản hoặc mật khẩu! Vui lòng thử lại.</span>
+        </div>
+
+        <form id="adminLoginForm" onsubmit="return false;">
+          <div class="form-group mb-3">
+            <label for="adminEmail"><i class="fa-solid fa-envelope"></i> Email Quản Trị</label>
+            <input type="email" id="adminEmail" class="admin-input" placeholder="Nhập email quản trị..." required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="adminPassword"><i class="fa-solid fa-key"></i> Mật Khẩu</label>
+            <div class="password-input-wrap">
+              <input type="password" id="adminPassword" class="admin-input" placeholder="Nhập mật khẩu..." required>
+              <button type="button" class="btn-toggle-pwd" id="btnToggleAdminPwd" aria-label="Hiện/ẩn mật khẩu">
+                <i class="fa-solid fa-eye" id="eyeAdminPwd"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-login-meta">
+            <label class="remember-label">
+              <input type="checkbox" id="adminRemember" checked> Ghi nhớ đăng nhập
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-large mt-3" id="btnSubmitAdminLogin">
+            <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập Quản Trị
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADMIN ANALYTICS COMMAND CENTER (FULL SCREEN) ================= -->
+  <div class="modal-overlay admin-fullscreen-overlay" id="adminDashboardModal">
+    <div class="admin-fullscreen-container">
+      
+      <!-- Top Command Bar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <div class="admin-brand">
+            <div class="admin-brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="admin-brand-text">
+              <div class="brand-title-row">
+                <h2>beAn Analytics Suite</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-topbar-right">
+          <div class="admin-topbar-actions">
+            <button type="button" class="btn-topbar btn-topbar-heatmap" id="btnDashToggleHeatmap" title="Xem trực quan các điểm phát sáng trên trang">
+              <i class="fa-solid fa-fire"></i> <span class="btn-label-text">Xem Heatmap</span>
+            </button>
+            <button type="button" class="btn-topbar btn-topbar-export" id="btnDashExport" title="Xuất báo cáo định dạng Excel (.xls)">
+              <i class="fa-solid fa-file-excel text-emerald"></i> <span class="btn-label-text">Xuất Excel</span>
+            </button>
+            <button type="button" class="btn-topbar btn-topbar-logout" id="btnAdminLogout" title="Đăng xuất khỏi hệ thống">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="btn-label-text">Đăng Xuất</span>
+            </button>
+          </div>
+
+          <div class="admin-user-info">
+            <div class="user-avatar"><i class="fa-solid fa-user-gear"></i></div>
+            <div class="user-details">
+              <span class="user-name">Quản Trị Viên</span>
+              <span class="user-email">admin@bean.com</span>
+            </div>
+          </div>
+
+          <button class="btn-fullscreen-close" id="btnCloseAdminDashboard" aria-label="Đóng toàn màn hình" title="Đóng">&times;</button>
+        </div>
+      </header>
+
+      <!-- Subheader: Filters & Timeframe Toolbar -->
+      <div class="admin-subtoolbar">
+        <div class="subtoolbar-left">
+          <div class="filter-label"><i class="fa-solid fa-calendar-days"></i> Khoảng Thời Gian:</div>
+          <div class="date-tabs" id="dateFilterTabs">
+            <button type="button" class="date-tab active" data-range="today">Hôm Nay</button>
+            <button type="button" class="date-tab" data-range="yesterday">Hôm Qua</button>
+            <button type="button" class="date-tab" data-range="last7days">7 Ngày Qua</button>
+            <button type="button" class="date-tab" data-range="all">Toàn Bộ Dữ Liệu</button>
+          </div>
+          <div class="date-picker-wrap">
+            <label for="adminDatePicker"><i class="fa-solid fa-calendar-day"></i> Ngày cụ thể:</label>
+            <input type="date" id="adminDatePicker" class="admin-date-input">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Dashboard Scrollable Content -->
+      <div class="admin-main-scroll">
+        
+        <!-- 6 KPI Metrics Deck -->
+        <section class="admin-metrics-deck">
+          <div class="metric-card card-clicks">
+            <div class="metric-header">
+              <span class="metric-label">Tổng Lượt Bấm (User Clicks)</span>
+              <div class="metric-icon-wrap"><i class="fa-solid fa-arrow-pointer"></i></div>
+            </div>
+            <div class="metric-number-row">
+              <h3 class="metric-value text-accent" id="dashTotalClicks">0</h3>
+              <span class="trend-pill trend-empty" id="dashTrendClicks"><i class="fa-solid fa-minus"></i> Chưa có</span>
+            </div>
+            <div class="metric-footer">
+              <span>Được ghi nhận trên toàn bộ các nút &amp; vùng tương tác trang chủ</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-dwell">
+            <div class="metric-header">
+              <span class="metric-label">Thời Lượng Đọc Trung Bình</span>
+              <div class="metric-icon-wrap"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            </div>
+            <div class="metric-number-row">
+              <h3 class="metric-value text-info" id="dashAvgDwellTime">Chưa có</h3>
+              <span class="trend-pill trend-empty" id="dashTrendDwell"><i class="fa-solid fa-eye-slash"></i> Chưa có</span>
+            </div>
+            <div class="metric-footer">
+              <span>Thời gian khách nán lại đọc từng phần trang web</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-top-click">
+            <div class="metric-header">
+              <span class="metric-label">Vùng Được Bấm Nhiều Nhất</span>
+              <div class="metric-icon-wrap"><i class="fa-solid fa-bullseye"></i></div>
+            </div>
+            <div class="metric-number-row">
+              <h3 class="metric-text-val text-warning" id="dashTopClickElement">Chưa có dữ liệu</h3>
+              <span class="trend-pill trend-empty" id="dashTopClickPill"><i class="fa-solid fa-minus"></i> Chưa có</span>
+            </div>
+            <div class="metric-footer">
+              <span id="dashTopClickCount">Chưa có lượt bấm</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-top-read">
+            <div class="metric-header">
+              <span class="metric-label">Khu Vực Đọc Lâu Nhất</span>
+              <div class="metric-icon-wrap"><i class="fa-solid fa-book-open-reader"></i></div>
+            </div>
+            <div class="metric-number-row">
+              <h3 class="metric-text-val text-purple" id="dashTopReadingSection">Chưa có dữ liệu</h3>
+              <span class="trend-pill trend-empty" id="dashTopReadingPill"><i class="fa-solid fa-minus"></i> Chưa có</span>
+            </div>
+            <div class="metric-footer">
+              <span id="dashTopReadingTime">Chưa có</span>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Two-Column Side-by-Side: Dwell Time (Left) & Click Heatmap (Right) -->
+        <div class="admin-split-grid">
+
+          <!-- Left Column: Reading Dwell Time & Scroll Depth Analytics (6 Sections) -->
+          <div class="admin-panel panel-reading-depth">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-icon bg-purple-soft"><i class="fa-solid fa-glasses"></i></div>
+                <div>
+                  <h4>Phân Tích Chi Tiết Khu Vực Đọc Nhiều Nhất</h4>
+                  <p class="panel-sub">Xếp hạng 6 khu vực trang web giữ chân người đọc lâu nhất</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="analytics-table custom-dash-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 45px; text-align: center;">Hạng</th>
+                      <th>Khu Vực Trang Web</th>
+                      <th style="width: 140px; text-align: center;">Lượt Cuộn Tới</th>
+                      <th style="width: 110px; text-align: center;">Thời Gian Đọc</th>
+                      <th style="width: 80px; text-align: center;">Tỷ Lệ %</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashReadingTableBody">
+                    <!-- Dynamically populated rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Click Heatmap & Interaction Matrix Table -->
+          <div class="admin-panel panel-clicks-matrix">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-icon bg-amber-soft"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <div>
+                  <h4>Bảng Xếp Hạng Vùng Bấm &amp; Điểm Tương Tác</h4>
+                  <p class="panel-sub">Thống kê chi tiết từng vị trí, số lần click và tỷ lệ quan tâm</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="analytics-table custom-dash-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 45px; text-align: center;">Hạng</th>
+                      <th>Vị Trí / Nút Bấm</th>
+                      <th style="width: 150px;">Khu Vực Trang</th>
+                      <th style="width: 85px; text-align: center;">Lượt Bấm</th>
+                      <th style="width: 80px; text-align: center;">Tỷ Lệ %</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashClicksTableBody">
+                    <!-- Dynamically populated rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Command Center Footer -->
+      <footer class="admin-footer-bar">
+        <div class="footer-left">
+          <span class="sys-version"><i class="fa-solid fa-shield-cat"></i> beAn Intelligence Platform v2.5</span>
+          <span class="divider">|</span>
+          <span class="text-muted"><i class="fa-solid fa-database"></i> Dữ liệu được lưu trữ &amp; đồng bộ đa ngày cục bộ</span>
+        </div>
+
+        <div class="footer-right">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnDashReset">
+            <i class="fa-solid fa-rotate-left"></i> Đặt Lại Dữ Liệu Ngày Này
+          </button>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ================= FLOATING HEATMAP DOCK ================= -->
+  <div class="floating-heatmap-dock" id="floatingHeatmapDock" style="display: none;">
+    <div class="floating-dock-card glass-panel">
+      <div class="dock-badge-pulse"><i class="fa-solid fa-fire text-danger"></i> HEATMAP ACTIVE</div>
+      <div class="dock-meta">
+        <span>Tổng click: <strong id="dockClickTotal" class="text-accent">0</strong></span>
+      </div>
+      <div class="dock-btns">
+        <button type="button" class="btn-dock-action" id="btnDockOpenAdmin" title="Mở Dashboard Admin">
+          <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </button>
+        <button type="button" class="btn-dock-action btn-dock-close" id="btnDockCloseHeatmap" title="Tắt chế độ xem vùng click">
+          <i class="fa-solid fa-xmark"></i> Tắt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Custom Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
