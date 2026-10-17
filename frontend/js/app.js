@@ -1803,23 +1803,72 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // 8. MOBILE MENU TOGGLE & SMOOTH SCROLL
+  // 8. MOBILE MENU TOGGLE & BACK-TO-TOP & SMOOTH SCROLL
   // ===================================================================
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
+  const navBackdrop = document.getElementById('navBackdrop');
+  const btnBackToTop = document.getElementById('btnBackToTop');
+
+  function closeMobileMenu() {
+    if (!navMenu) return;
+    navMenu.classList.remove('is-open');
+    if (menuToggle) {
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      const icon = menuToggle.querySelector('i');
+      if (icon) {
+        icon.className = 'fa-solid fa-bars';
+      }
+    }
+    if (navBackdrop) {
+      navBackdrop.classList.remove('active');
+    }
+    document.body.classList.remove('mobile-menu-locked');
+  }
+
+  function openMobileMenu() {
+    if (!navMenu) return;
+    navMenu.classList.add('is-open');
+    if (menuToggle) {
+      menuToggle.classList.add('active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      const icon = menuToggle.querySelector('i');
+      if (icon) {
+        icon.className = 'fa-solid fa-xmark';
+      }
+    }
+    if (navBackdrop) {
+      navBackdrop.classList.add('active');
+    }
+    document.body.classList.add('mobile-menu-locked');
+  }
 
   if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-      navMenu.style.flexDirection = 'column';
-      navMenu.style.position = 'absolute';
-      navMenu.style.top = '100%';
-      navMenu.style.left = '0';
-      navMenu.style.width = '100%';
-      navMenu.style.background = 'linear-gradient(135deg, #064e3b 0%, #047857 100%)';
-      navMenu.style.padding = '1.5rem';
-      navMenu.style.gap = '1rem';
-      navMenu.style.borderBottom = '1px solid rgba(255, 255, 255, 0.15)';
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.contains('is-open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', closeMobileMenu);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navMenu.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
     });
   }
 
@@ -1829,15 +1878,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navLinks.forEach((link) => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 768 && navMenu) {
-        navMenu.style.display = 'none';
+      if (window.innerWidth <= 768) {
+        closeMobileMenu();
       }
     });
   });
 
+  // Back to top button logic
+  if (btnBackToTop) {
+    btnBackToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   window.addEventListener('scroll', () => {
     let current = '';
     const scrollY = window.pageYOffset;
+
+    // Show/hide Back to Top button
+    if (btnBackToTop) {
+      if (scrollY > 380) {
+        btnBackToTop.classList.add('visible');
+      } else {
+        btnBackToTop.classList.remove('visible');
+      }
+    }
 
     sections.forEach(sec => {
       const sectionHeight = sec.offsetHeight;
@@ -1853,7 +1921,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.classList.add('active');
       }
     });
-  });
+  }, { passive: true });
 
   // ===================================================================
   // 9. HERO IMAGE SLIDER (NEXT/PREV QUAY QUA LẠI)
