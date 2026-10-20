@@ -43,8 +43,12 @@ public class AnalyticsService {
 
     @PostConstruct
     public void init() {
-        loadFromStorage();
+        // 1. Fast instant initialization from file and memory so port 8080 binds immediately
+        loadFromFile();
         ensureRecentDaysExist();
+
+        // 2. Asynchronously sync with MongoDB in background without blocking web server startup
+        new Thread(this::syncWithMongoAsync).start();
     }
 
     public Map<String, DayAnalytics> getAllData() {
@@ -58,10 +62,7 @@ public class AnalyticsService {
         }
         final String finalKey = dateKey;
         return analyticsData.computeIfAbsent(finalKey, k -> {
-            DayAnalytics day = findDayInMongo(finalKey);
-            if (day == null) {
-                day = new DayAnalytics(finalKey);
-            }
+            DayAnalytics day = new DayAnalytics(finalKey);
             saveDayAsync(day);
             return day;
         });
@@ -121,14 +122,7 @@ public class AnalyticsService {
     private void ensureRecentDaysExist() {
         for (int i = 0; i < 7; i++) {
             String key = getPastDateKey(i);
-            if (!analyticsData.containsKey(key)) {
-                DayAnalytics day = findDayInMongo(key);
-                if (day == null) {
-                    day = new DayAnalytics(key);
-                    saveDayDirect(day);
-                }
-                analyticsData.put(key, day);
-            }
+            analyticsData.computeIfAbsent(key, DayAnalytics::new);
         }
     }
 
@@ -153,60 +147,34 @@ public class AnalyticsService {
         }
     }
 
-    private DayAnalytics findDayInMongo(String dateKey) {
+    private void syncWithMongoAsync() {
         MongoCollection<Document> col = getCollection();
-        if (col == null || dateKey == null) {
-            return null;
+        if (col == null) {
+            return;
         }
         try {
-            Document doc = col.find(Filters.eq("_id", dateKey)).first();
-            if (doc != null) {
-                return parseDocumentToDay(doc);
+            int count = 0;
+            try (MongoCursor<Document> cursor = col.find().iterator()) {
+                while (cursor.hasNext()) {
+                    Document doc = cursor.next();
+                    DayAnalytics day = parseDocumentToDay(doc);
+                    if (day != null && day.getDateKey() != null) {
+                        analyticsData.put(day.getDateKey(), day);
+                        count++;
+                    }
+                }
+            }
+            if (count > 0) {
+                System.out.println("[AnalyticsService] Successfully loaded " + count + " daily records from MongoDB Atlas.");
+            } else if (!analyticsData.isEmpty()) {
+                // If MongoDB Atlas is newly created and empty, migrate local data into MongoDB Atlas
+                for (DayAnalytics day : analyticsData.values()) {
+                    saveDayDirect(day);
+                }
+                System.out.println("[AnalyticsService] Seeded MongoDB Atlas with " + analyticsData.size() + " records.");
             }
         } catch (Exception e) {
-            System.err.println("[AnalyticsService] findDayInMongo error for " + dateKey + ": " + e.getMessage());
-        }
-        return null;
-    }
-
-    private void loadFromStorage() {
-        boolean loadedFromMongo = false;
-        MongoCollection<Document> col = getCollection();
-        if (col != null) {
-            try {
-                int count = 0;
-                try (MongoCursor<Document> cursor = col.find().iterator()) {
-                    while (cursor.hasNext()) {
-                        Document doc = cursor.next();
-                        DayAnalytics day = parseDocumentToDay(doc);
-                        if (day != null && day.getDateKey() != null) {
-                            analyticsData.put(day.getDateKey(), day);
-                            count++;
-                        }
-                    }
-                }
-                if (count > 0) {
-                    loadedFromMongo = true;
-                    System.out.println("[AnalyticsService] Successfully loaded " + count + " daily records from MongoDB Atlas / Server.");
-                }
-            } catch (Exception e) {
-                System.err.println("[AnalyticsService] MongoDB load failed (falling back to JSON file): " + e.getMessage());
-            }
-        }
-
-        if (!loadedFromMongo) {
-            loadFromFile();
-            // Migrate existing JSON file data into MongoDB if connected
-            if (col != null && !analyticsData.isEmpty()) {
-                try {
-                    for (DayAnalytics day : analyticsData.values()) {
-                        saveDayDirect(day);
-                    }
-                    System.out.println("[AnalyticsService] Migrated " + analyticsData.size() + " records from JSON file to MongoDB.");
-                } catch (Exception e) {
-                    System.err.println("[AnalyticsService] Migration to MongoDB failed: " + e.getMessage());
-                }
-            }
+            System.err.println("[AnalyticsService] MongoDB async sync error: " + e.getMessage());
         }
     }
 
