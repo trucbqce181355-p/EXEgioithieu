@@ -255,33 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (res.ok) {
         const serverData = await res.json();
         if (serverData && typeof serverData === 'object' && Object.keys(serverData).length > 0) {
-          // Merge server data with local cache (preserve higher counts and never wipe out data)
-          const merged = { ...multiDayAnalytics };
-          for (const [date, sDay] of Object.entries(serverData)) {
-            if (!merged[date]) {
-              merged[date] = sDay;
-            } else {
-              const lDay = merged[date];
-              merged[date] = {
-                dateKey: date,
-                totalClicks: Math.max(lDay.totalClicks || 0, sDay.totalClicks || 0),
-                elements: { ...(lDay.elements || {}) },
-                sectionDwell: { ...(lDay.sectionDwell || {}) },
-                scrollReach: { ...(lDay.scrollReach || {}) }
-              };
-              for (const [k, v] of Object.entries(sDay.elements || {})) {
-                merged[date].elements[k] = Math.max(merged[date].elements[k] || 0, v || 0);
-              }
-              for (const [k, v] of Object.entries(sDay.sectionDwell || {})) {
-                merged[date].sectionDwell[k] = Math.max(merged[date].sectionDwell[k] || 0, v || 0);
-              }
-              for (const [k, v] of Object.entries(sDay.scrollReach || {})) {
-                merged[date].scrollReach[k] = Math.max(merged[date].scrollReach[k] || 0, v || 0);
-              }
-            }
-          }
-          multiDayAnalytics = merged;
-          saveMultiDayAnalytics(merged);
+          multiDayAnalytics = serverData;
+          saveMultiDayAnalytics(serverData);
           updateMetricUI();
           const adminDash = document.getElementById('adminDashboardModal');
           if (adminDash && adminDash.classList.contains('active') && typeof renderAdminDashboard === 'function') {

@@ -52,8 +52,27 @@ public class AnalyticsService {
     }
 
     public Map<String, DayAnalytics> getAllData() {
+        refreshFromMongo();
         ensureRecentDaysExist();
         return Collections.unmodifiableMap(analyticsData);
+    }
+
+    public void refreshFromMongo() {
+        MongoCollection<Document> col = getCollection();
+        if (col == null) return;
+        try {
+            try (MongoCursor<Document> cursor = col.find().iterator()) {
+                while (cursor.hasNext()) {
+                    Document doc = cursor.next();
+                    DayAnalytics day = parseDocumentToDay(doc);
+                    if (day != null && day.getDateKey() != null) {
+                        analyticsData.put(day.getDateKey(), day);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("[AnalyticsService] MongoDB refresh error: " + e.getMessage());
+        }
     }
 
     public DayAnalytics getOrCreateDay(String dateKey) {
