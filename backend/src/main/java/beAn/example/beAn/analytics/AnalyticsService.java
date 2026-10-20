@@ -148,33 +148,40 @@ public class AnalyticsService {
     }
 
     private void syncWithMongoAsync() {
-        MongoCollection<Document> col = getCollection();
-        if (col == null) {
-            return;
-        }
-        try {
-            int count = 0;
-            try (MongoCursor<Document> cursor = col.find().iterator()) {
-                while (cursor.hasNext()) {
-                    Document doc = cursor.next();
-                    DayAnalytics day = parseDocumentToDay(doc);
-                    if (day != null && day.getDateKey() != null) {
-                        analyticsData.put(day.getDateKey(), day);
-                        count++;
+        for (int attempt = 1; attempt <= 3; attempt++) {
+            MongoCollection<Document> col = getCollection();
+            if (col == null) {
+                return;
+            }
+            try {
+                if (attempt > 1) {
+                    Thread.sleep(3000);
+                }
+                int count = 0;
+                try (MongoCursor<Document> cursor = col.find().iterator()) {
+                    while (cursor.hasNext()) {
+                        Document doc = cursor.next();
+                        DayAnalytics day = parseDocumentToDay(doc);
+                        if (day != null && day.getDateKey() != null) {
+                            analyticsData.put(day.getDateKey(), day);
+                            count++;
+                        }
                     }
                 }
-            }
-            if (count > 0) {
-                System.out.println("[AnalyticsService] Successfully loaded " + count + " daily records from MongoDB Atlas.");
-            } else if (!analyticsData.isEmpty()) {
-                // If MongoDB Atlas is newly created and empty, migrate local data into MongoDB Atlas
-                for (DayAnalytics day : analyticsData.values()) {
-                    saveDayDirect(day);
+                if (count > 0) {
+                    System.out.println("[AnalyticsService] Successfully loaded " + count + " daily records from MongoDB Atlas.");
+                } else if (!analyticsData.isEmpty()) {
+                    for (DayAnalytics day : analyticsData.values()) {
+                        saveDayDirect(day);
+                    }
+                    System.out.println("[AnalyticsService] Seeded MongoDB Atlas with " + analyticsData.size() + " records.");
                 }
-                System.out.println("[AnalyticsService] Seeded MongoDB Atlas with " + analyticsData.size() + " records.");
+                return; // Done
+            } catch (Exception e) {
+                if (attempt == 3) {
+                    System.err.println("[AnalyticsService] MongoDB async sync error: " + e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            System.err.println("[AnalyticsService] MongoDB async sync error: " + e.getMessage());
         }
     }
 
