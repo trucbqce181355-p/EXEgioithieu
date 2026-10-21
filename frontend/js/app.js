@@ -626,41 +626,58 @@ document.addEventListener('DOMContentLoaded', () => {
     if (simTempDisplay) simTempDisplay.textContent = `${simState.temp}°C`;
     if (oledTemp) oledTemp.textContent = `${simState.temp.toFixed(1)}°C`;
 
-    // Case 1: Engine is OFF and Child is PRESENT
+    // Case 1: Xe đã tắt máy (Acc Off) VÀ Phát hiện có người
     if (!simState.engineOn && simState.childPresent) {
-      if (simState.temp >= 38) {
-        // Critical Danger
-        if (simStatusBadge) {
-          simStatusBadge.className = 'sim-output-badge danger-state';
-          simStatusBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> BÁO ĐỘNG ĐỎ: NGUY CƠ SỐC NHIỆT CỰC ĐỘ!';
-        }
-        if (oledStatus) {
-          oledStatus.className = 'text-danger';
-          oledStatus.textContent = 'CRITICAL DANGER!';
-        }
-        if (simNotiMsg) {
-          simNotiMsg.textContent = `NGUY CẤP! Nhiệt độ xe đã lên ${simState.temp}°C! Bé đang gặp nguy hiểm! Hãy mở khóa ngay!`;
-        }
-        if (simPhoneNotification) simPhoneNotification.className = 'sim-phone-notification show';
-        if (simActionSummary) {
-          simActionSummary.innerHTML = '<strong class="text-danger"><i class="fa-solid fa-volume-high"></i> Còi xe đang hú vang liên tục • Flutter App rung báo động đỏ tức thời!</strong>';
+      // Chỉ khi TRÊN 35°C mới kích hoạt cảnh báo nguy hiểm
+      if (simState.temp > 35) {
+        if (simState.temp >= 40) {
+          // Báo động đỏ cực độ (Critical Danger)
+          if (simStatusBadge) {
+            simStatusBadge.className = 'sim-output-badge danger-state';
+            simStatusBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> BÁO ĐỘNG ĐỎ: NGUY CƠ SỐC NHIỆT CỰC ĐỘ (>35°C)!';
+          }
+          if (oledStatus) {
+            oledStatus.className = 'text-danger';
+            oledStatus.textContent = 'CRITICAL DANGER!';
+          }
+          if (simNotiMsg) {
+            simNotiMsg.textContent = `NGUY CẤP! Xe tắt máy có người bên trong và nhiệt độ cabin đã lên ${simState.temp}°C! Nguy cơ sốc nhiệt cực độ, hãy mở khóa ngay!`;
+          }
+          if (simPhoneNotification) simPhoneNotification.className = 'sim-phone-notification show';
+          if (simActionSummary) {
+            simActionSummary.innerHTML = '<strong class="text-danger"><i class="fa-solid fa-volume-high"></i> Còi xe đang hú vang liên tục • Flutter App rung báo động đỏ tức thời!</strong>';
+          }
+        } else {
+          // Cảnh báo nguy hiểm khi nhiệt độ trên 35°C
+          if (simStatusBadge) {
+            simStatusBadge.className = 'sim-output-badge danger-state';
+            simStatusBadge.innerHTML = '<i class="fa-solid fa-bell"></i> CẢNH BÁO NGUY HIỂM: PHÁT HIỆN NGƯỜI TRÊN XE TẮT MÁY (>35°C)!';
+          }
+          if (oledStatus) {
+            oledStatus.className = 'text-warning';
+            oledStatus.textContent = 'PERSON DETECTED!';
+          }
+          if (simNotiMsg) {
+            simNotiMsg.textContent = `CẢNH BÁO! Phát hiện có người trong xe sau khi tắt máy và nhiệt độ cabin vượt ngưỡng 35°C (hiện tại: ${simState.temp}°C)!`;
+          }
+          if (simPhoneNotification) simPhoneNotification.className = 'sim-phone-notification show';
+          if (simActionSummary) {
+            simActionSummary.innerHTML = '<strong class="text-warning"><i class="fa-solid fa-mobile-screen"></i> Bắn thông báo khẩn qua Firebase • Chuẩn bị kích hoạt còi xe sau 60s.</strong>';
+          }
         }
       } else {
-        // Warning
+        // Nhiệt độ <= 35°C: Xe tắt máy, phát hiện người nhưng chưa vượt ngưỡng 35°C => Chưa cảnh báo nguy hiểm
         if (simStatusBadge) {
-          simStatusBadge.className = 'sim-output-badge danger-state';
-          simStatusBadge.innerHTML = '<i class="fa-solid fa-bell"></i> CẢNH BÁO: PHÁT HIỆN BÉ CÒN TRÊN XE TẮT MÁY!';
+          simStatusBadge.className = 'sim-output-badge';
+          simStatusBadge.innerHTML = '<i class="fa-solid fa-shield-halved text-success"></i> Trạng thái: THEO DÕI AN TOÀN (Nhiệt độ ≤ 35°C)';
         }
         if (oledStatus) {
-          oledStatus.className = 'text-warning';
-          oledStatus.textContent = 'CHILD DETECTED!';
+          oledStatus.className = 'text-info';
+          oledStatus.textContent = 'SAFE - MONITOR';
         }
-        if (simNotiMsg) {
-          simNotiMsg.textContent = `Phát hiện có cử động/nhịp thở trong xe sau khi tắt máy! Nhiệt độ hiện tại: ${simState.temp}°C.`;
-        }
-        if (simPhoneNotification) simPhoneNotification.className = 'sim-phone-notification show';
+        if (simPhoneNotification) simPhoneNotification.className = 'sim-phone-notification';
         if (simActionSummary) {
-          simActionSummary.innerHTML = '<strong class="text-warning"><i class="fa-solid fa-mobile-screen"></i> Bắn thông báo khẩn qua Firebase • Chuẩn bị kích hoạt còi xe sau 60s.</strong>';
+          simActionSummary.textContent = `Phát hiện có người trên xe nhưng nhiệt độ cabin đang ở mức an toàn (${simState.temp}°C ≤ 35°C). Hệ thống tiếp tục radar giám sát vi chuyển động, chưa kích hoạt cảnh báo nguy hiểm.`;
         }
       }
     } else if (simState.engineOn) {
